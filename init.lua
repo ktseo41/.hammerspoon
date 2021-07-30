@@ -10,7 +10,7 @@ if frontmostApplication and frontmostApplication:name() == "Code" then
 
     local off_caps_mode = function()
 
-        caps_mode:exit()간
+        caps_mode:exit()
 
         local input_source = hs.keycodes.currentSourceID()
 
