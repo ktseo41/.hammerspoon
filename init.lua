@@ -62,10 +62,14 @@ layoutWatcher = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, function
 
         if current == inputSource.english then
             nextInput = inputSource.korean
-            hs.alert("ㄱㄴㄷ")
+            for _, screen in ipairs(hs.screen.allScreens()) do
+                hs.alert("ㄱㄴㄷ", screen)
+            end
         else
             nextInput = inputSource.english
-            hs.alert("ABC")
+            for _, screen in ipairs(hs.screen.allScreens()) do
+                hs.alert("ABC", screen)
+            end
         end
         hs.keycodes.currentSourceID(nextInput)
     end
