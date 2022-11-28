@@ -1,49 +1,30 @@
-local frontmostApplication = hs.application.frontmostApplication()
-
-if frontmostApplication and frontmostApplication:name() == "Code" then
-    local caps_mode = hs.hotkey.modal.new()
-    local inputEnglish = "com.apple.keylayout.ABC"
-
-    local on_caps_mode = function()
-        caps_mode:enter()
-    end
-
-    local off_caps_mode = function()
-
-        caps_mode:exit()
-
-        local input_source = hs.keycodes.currentSourceID()
-
-        if not (input_source == inputEnglish) then
-            hs.keycodes.currentSourceID(inputEnglish)
-        end
-        hs.eventtap.keyStroke({'control'}, 'c')
-    end
-
-    hs.hotkey.bind({}, 'escape', on_caps_mode, off_caps_mode)
+do
+  hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
+    hs.reload()
+  end)
+  hs.alert.show("Config loaded")
 end
 
--- https://johngrib.github.io/wiki/hammerspoon-tutorial-03/
-do  -- input sorce changer
-    local inputSource = {
-        english = "com.apple.keylayout.ABC",
-        korean = "com.apple.inputmethod.Korean.2SetKorean",
-    }
+do
+  hs.hotkey.bind({"cmd", "alt"}, "L", function()
+    hs.application.open("Slack")
+  end)
+end
 
-    local changeInput = function()
+do
+  hs.hotkey.bind({"cmd", "alt"}, "K", function()
+    hs.application.open("KakaoTalk")
+  end)
+end
 
-        local current = hs.keycodes.currentSourceID()
-        local nextInput = nil
+do
+  hs.hotkey.bind({"cmd", "alt"}, "N", function()
+    hs.application.open("Notion")
+  end)
+end
 
-        if current == inputSource.english then
-            nextInput = inputSource.korean
-            hs.alert("ㄱㄴㄷ")
-        else
-            nextInput = inputSource.english
-            hs.alert("ABC")
-        end
-        hs.keycodes.currentSourceID(nextInput)
-    end
-
-    hs.hotkey.bind({'shift'}, 'space', changeInput)
+do
+  hs.hotkey.bind({"cmd", "alt"}, "O", function()
+    hs.application.open("Visual Studio Code")
+  end)
 end
