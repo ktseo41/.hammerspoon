@@ -34,3 +34,23 @@ do
     hs.application.open("Terminal")
   end)
 end
+
+local function changeInputMethodToEnglish()
+  hs.keycodes.currentSourceID("com.apple.keylayout.ABC")
+end
+
+hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
+  local flags = e:getFlags()
+  local keycode = e:getKeyCode()
+
+  -- ESC 키의 keycode는 53입니다.
+  if keycode == 53 then
+      local app = hs.application.frontmostApplication()
+      if app:name() == "Code" then
+          changeInputMethodToEnglish()
+      end
+  end
+
+  -- 이 함수에서는 false를 반환하면 원래의 키 이벤트가 그대로 전달됩니다.
+  return false
+end):start()
